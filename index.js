@@ -24,6 +24,16 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// your first API endpoint... 
+app.get("/api/:input", function (req, res) {
+  let date = new Date(req.params.input);
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
+});
+
+
 
 
 // Listen on port set in environment variable or default to 3000
