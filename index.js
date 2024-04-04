@@ -24,14 +24,34 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// your first API endpoint... 
+// Endpoint for date and timestamp
 app.get("/api/:input", function (req, res) {
-  let date = new Date(req.params.input);
+  let input = req.params.input;
+  if(Number.parseInt(input) == input)
+    input = Number.parseInt(input);
+  let date = new Date(input);
+
+  if(date.toJSON()){
+    res.json({
+      unix: date.getTime(),
+      utc: date.toUTCString()
+    });
+  }
+    
+  else{
+    res.json({
+      error: "Invalid Date"
+    });
+  }
+});
+
+app.get("/api/", function (req, res) {
+  let date = new Date();
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString()
   });
-});
+})
 
 
 
